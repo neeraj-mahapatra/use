@@ -39,30 +39,35 @@ function TensorflowComponent() {
       }
     };
 
-  return (
-    <div className="tensorflow-container">
-      <div className="input-container">
-        <h1>TensorFlow Model Demo</h1>
-        <textarea
-          rows="10"
-          placeholder="Enter sentences separated by new lines..."
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-        ></textarea>
-        <br />
-        <button onClick={handleButtonClick} disabled={isLoading}>
-          {isLoading ? 'Generating Embeddings...' : 'Generate Embeddings'}
-        </button>
-      </div>
-
-      <div className="output-container">
-        <h2>Embeddings:</h2>
-        <div className="output-content">
-          {JSON.stringify(embeddings, null, 2)}
+    return (
+        <div className="tensorflow-container">
+          <div className="input-container">
+            <h1>TensorFlow Model Demo</h1>
+            {model ? (
+              <p>Model loaded successfully!</p>
+            ) : (
+              <p>Loading model, please wait...</p>
+            )}
+            <textarea
+              rows="10"
+              placeholder="Enter sentences separated by new lines..."
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
+            ></textarea>
+            <br />
+            <button onClick={handleButtonClick} disabled={!model || isLoading}>
+              {isLoading ? 'Generating Embeddings...' : 'Generate Embeddings'}
+            </button>
+          </div>
+      
+          <div className="output-container">
+            <h2>Embeddings:</h2>
+            <div className="output-content">
+              {JSON.stringify(embeddings, null, 2)}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  );
+      );    
 }
 
 export default TensorflowComponent;
